@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ClassesContacte">
+        <item>Amics</item>
+        <item>Treball</item>
+        <item>Familia</item>
+        <item>Altres</item>
+    </string-array>
+</resources>
