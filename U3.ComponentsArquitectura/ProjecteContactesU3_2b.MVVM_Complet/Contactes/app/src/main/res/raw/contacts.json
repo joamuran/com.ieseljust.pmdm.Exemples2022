@@ -1,0 +1,60 @@
+{
+    "contacts": [{
+            "name": "Cassian Andor",
+            "classe": "Amics",
+            "img": "andor",
+            "phone": "555123456",
+            "email": "c.andor@bandorebelde.com"
+        },
+        {
+            "name": "Mon Mothma",
+            "classe": "Treball",
+            "img": "monmothma",
+            "phone": "555123457",
+            "email": "m.mothma@bandorebelde.com"
+        },
+        {
+            "name": "Luthen Rael",
+            "classe": "Amics",
+            "img": "luthenrael",
+            "phone": "555123457",
+            "email": "l.rael@bandorebelde.com"
+        },
+        {
+            "name": "Saw Guerrara",
+            "classe": "Amics",
+            "img": "sawguerrera",
+            "phone": "555098765",
+            "email": "s.guerrara@bandorebelde.com"
+        },
+        {
+            "name": "Syril Karn",
+            "classe": "Treball",
+            "img": "syrikkarn",
+            "phone": "555654321",
+            "email": "s.karn@bandoimperial.com"
+        },
+        {
+            "name": "Bix Caleen",
+            "classe": "Amics",
+            "img": "bixcaleen",
+            "phone": "555443322",
+            "email": "b.caleen@bandorebelde.com"
+        },
+        {
+            "name": "K-2SO",
+            "classe": "Amics",
+            "img": "k2so",
+            "phone": "555111122",
+            "email": "k.2so@bandorebelde.com"
+        },
+        {
+            "name": "Deedra Meero",
+            "classe": "Treball",
+            "img": "deedrameero",
+            "phone": "555666655",
+            "email": "d.meero@bandoimperial.com"
+        }
+
+    ]
+}
