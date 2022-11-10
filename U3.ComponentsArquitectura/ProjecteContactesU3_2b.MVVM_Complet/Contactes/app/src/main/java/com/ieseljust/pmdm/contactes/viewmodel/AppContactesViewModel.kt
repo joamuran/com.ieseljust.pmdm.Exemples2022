@@ -14,17 +14,21 @@ class AppContactesViewModel(application: Application): AndroidViewModel(applicat
     // Definición d'atributs
 
     // Contacte que s'està editant actualment
-    private val _contacteActual=MutableLiveData<Contacte>()
+    // Observeu que el contacte pot ser nul 
+    private val _contacteActual=MutableLiveData<Contacte?>()
 
     // Accés públic
-    val contacteActual: LiveData<Contacte> = _contacteActual
+    val contacteActual: LiveData<Contacte?> = _contacteActual
 
     // Setter
     fun setContacteActual(contacte:Contacte){
         _contacteActual.value=contacte.copy()
-
     }
 
+    // Setter a null
+    fun cleanContacteActual(){
+        _contacteActual.value = null
+    }
 
     // Atributs LiveData per gestionar els clicks, de manera que
     // puguen ser observats per un observer en el fragment

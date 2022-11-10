@@ -9,20 +9,28 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigator
 import com.ieseljust.pmdm.contactes.R
 import com.ieseljust.pmdm.contactes.databinding.ActivityMainBinding
+import com.ieseljust.pmdm.contactes.viewmodel.AppContactesViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
+
+    // Adaptació a MVVM: Referència al ViewModel
+    private lateinit var viewModel: AppContactesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
      binding = ActivityMainBinding.inflate(layoutInflater)
      setContentView(binding.root)
+
+        // Adaptació a MVVM: Instanciem el ViewModel, utilitzant la classe ViewModelProvider
+        viewModel = ViewModelProvider(this)[AppContactesViewModel::class.java]
 
         setSupportActionBar(binding.toolbar)
 
@@ -32,6 +40,7 @@ private lateinit var binding: ActivityMainBinding
 
         // Modificació per anar al segon fragment
         binding.fab.setOnClickListener { view ->
+            viewModel.cleanContacteActual()
             navController.navigate(R.id.action_FirstFragment_to_SecondFragment);
         }
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -51,16 +52,33 @@ class SecondFragment : Fragment() {
             // I quan aquests es produïsquen, actualitzem les vistes de la interfície
             it?.let {
                 // Actualitzem les vistes de la interfície
+                // I preparem els TextViews  per actualitzar el ViewModel quan canvien de valor
                 binding.imageViewContacte.setImageResource(it.img)
+
+                // TextView per al nom
                 binding.editTextTextPersonName.setText(it.name)
+                binding.editTextTextPersonName.doOnTextChanged { text, _, _, _ ->
+                    viewModel.contacteActual.value?.name=text.toString()
+                }
+
+                // TextView per al telèfon
                 binding.editTextPhone.setText(it.phone)
+                binding.editTextPhone.doOnTextChanged { text, _, _, _ ->
+                    viewModel.contacteActual.value?.phone=text.toString()
+                }
+
+                // TextView per al correu
                 binding.editTextTextEmailAddress.setText(it.email)
+                binding.editTextTextEmailAddress.doOnTextChanged { text, _, _, _ ->
+                    viewModel.contacteActual.value?.email=text.toString()
+                }
+
 
                 // Actualització de l'spinner
                 // Recorrem els diferents valors d'aquest, i comparem
                 // amb el valor guardat. Si coindiceix, deixem seleccionat el valor.
 
-                for (i in 0..binding.spinnerClasse.adapter.count)
+                for (i in 0 until binding.spinnerClasse.adapter.count)
                     if (binding.spinnerClasse.adapter.getItem(i).equals(it.classe)) {
                         binding.spinnerClasse.setSelection(i)
                         break
