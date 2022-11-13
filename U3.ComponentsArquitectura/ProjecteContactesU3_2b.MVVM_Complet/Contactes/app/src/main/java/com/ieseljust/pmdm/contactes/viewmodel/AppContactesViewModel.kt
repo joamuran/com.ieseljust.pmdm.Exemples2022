@@ -14,7 +14,7 @@ class AppContactesViewModel(application: Application): AndroidViewModel(applicat
     // Definición d'atributs
 
     // Contacte que s'està editant actualment
-    // Observeu que el contacte pot ser nul 
+    // Observeu que el contacte pot ser nul
     private val _contacteActual=MutableLiveData<Contacte?>()
 
     // Accés públic
