@@ -1,8 +1,6 @@
 package com.ieseljust.pmdm.contactes.viewmodel
 
 import android.app.Application
-import android.util.Log
-import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -40,7 +38,6 @@ class AppContactesViewModel(application: Application): AndroidViewModel(applicat
 
     // Livedata per a la llista de contactes
     val contacteList: LiveData<List<Contacte>> by lazy {
-        Log.d("A", "AAAAA");
         repository.getContactes()
 
     }
@@ -81,11 +78,9 @@ class AppContactesViewModel(application: Application): AndroidViewModel(applicat
         // s'han d'invocar quan es produisquen els clicks.
 
         value= AdaptadorContactes(
-            { contacte: Contacte, v: View -> ContacteClickedManager(contacte, v)},
-            { contacte: Contacte, v: View -> ContacteLongClickedManager(contacte, v)},
-            this@AppContactesViewModel
-            //getApplication<Application>().applicationContext // Açò ho podem fer gràcies a derivar d'AndroidViewModel
-        )
+            { contacte: Contacte -> ContacteClickedManager(contacte)},
+            { contacte: Contacte -> ContacteLongClickedManager(contacte)},
+            this@AppContactesViewModel)
     }
 
     // Definim la propietat per a l'adaptador, que podrem llegir des
@@ -101,12 +96,12 @@ class AppContactesViewModel(application: Application): AndroidViewModel(applicat
     // a través d'aquestes variables de tipus MutableLiveData
     // que son contacteClicked i contacteLongClicked.
 
-    private fun ContacteClickedManager(contacte: Contacte, v: View){
+    private fun ContacteClickedManager(contacte: Contacte){
         // Para establecer el valor del liveData utilizamos value
         contacteClicked.value=contacte
     }
 
-    private fun ContacteLongClickedManager(contacte: Contacte, v: View):Boolean {
+    private fun ContacteLongClickedManager(contacte: Contacte):Boolean {
         // Per establir el valor del liveData fem ús de la propietat value
         contacteLongClicked.value=contacte
         // Assignem també el LiveData contacteToRemove
@@ -118,44 +113,41 @@ class AppContactesViewModel(application: Application): AndroidViewModel(applicat
         viewModelScope.launch(Dispatchers.IO) {
             repository.removeContacte(contacte)
             contacteList.value?.indexOf(contacte)?.let {
-                deletedPos.postValue(it);
+                deletedPos.postValue(it)
             }
         }
     }
 
-    // Mètode per guardar el contacte
+    // Mètode per guardar/actualitzar el contacte
     // rebem un contacte nou i retornarem un valor lògic que indica si
-    // el contacte s'ha guardat correctament.
+    // el contacte s'ha guardat/actualitzat correctament.
+
     fun guardaContacte(contacte: Contacte){
-        Log.d("Debug meu", "333333333333333333");
         viewModelScope.launch(Dispatchers.IO) {
-
-            Log.d("Debug meu 44 ", _contacteActual.value.toString());
-            Log.d("Debug meu 55 ", contacte.toString());
-
-
             // Comprovem si el contacte actual existeix o és nul
             if (_contacteActual.value != null) { // Si existeix fem l'updte
                 repository.updateContacte(_contacteActual.value as Contacte)
-
-                // Indiquem a l'adaptador que s'ha modificat l'element
-                contacteList.value?.indexOf(_contacteActual.value)
-                    ?.let { adaptador.value?.notifyItemChanged(it) }
-
-                // Activamos el indicador parkUpdate para notificar a la interfaz
+                // Activem l'indicador contacteUpdated per notificat a la
+                // interfície que s'ha modificat un element
                 contacteUpdated.postValue(true)
             }
-            else repository.addContacte(contacte)  // Si no, l'afegim
-            // I actualitzem el contacte actual, fent una còpia del contacte
+            else { // Si no, l'afegim
+                repository.addContacte(contacte)
+                // Activem l'indicador contacteSavedm per notificat a la
+                // interfície que s'ha afegit un element
+                contacteSaved.postValue(true)
+            }
+
+            // I tant si actualitzem com si afegim....
+
+            // Actualitzem el contacte actual, fent una còpia del contacte
             _contacteActual.postValue(contacte.copy())
 
-            // Notifiquem a l'adaptador que s'ha modificat el dataset
-            adaptador.value?.notifyDataSetChanged()
-
-            // Activem l'indicador contacteSavedm per notificat a la
-            // interfície que s'ha afegit un element
-            contacteSaved.postValue(true)
-
+            // Notifiquem a l'adaptador que s'ha modificat un element
+            contacteList.value?.indexOf(_contacteActual.value)
+                ?.let { adaptador.value?.notifyItemChanged(it) }
+            // Utilitzem açò en lloc del adaptador.value?.notifyDataSetChanged()
+            //  (per eficiència i suggerència de l'IDE)
         }
     }
 }

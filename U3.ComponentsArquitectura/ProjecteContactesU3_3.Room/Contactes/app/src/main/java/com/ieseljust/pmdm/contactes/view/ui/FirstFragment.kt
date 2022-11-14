@@ -1,7 +1,6 @@
 package com.ieseljust.pmdm.contactes.view.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -57,8 +56,6 @@ class FirstFragment : Fragment(), MyDialogFragment.OkOrCancelDialogable {
         // de manera que es puga compartir entre els fragments.
         viewModel = ViewModelProvider(requireActivity())[AppContactesViewModel::class.java]
 
-        var pajarito = viewModel.contacteList.value
-        Log.d("pajarito", pajarito.toString())
         // Preparació del RecyclerView:
 
         // 1. Associem el LayoutManager

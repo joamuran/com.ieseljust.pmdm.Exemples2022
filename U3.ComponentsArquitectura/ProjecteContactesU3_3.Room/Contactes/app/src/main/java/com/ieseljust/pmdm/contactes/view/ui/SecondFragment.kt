@@ -1,7 +1,6 @@
 package com.ieseljust.pmdm.contactes.view.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,12 +19,8 @@ class SecondFragment : Fragment() {
     private var _binding: FragmentSecondBinding? = null
     private val binding get() = _binding!!
 
-    // Definim el contacte actual que estem editant
-    private var contacteActual: Contacte? = null
-
     // Adaptació a MVVM: Referència al ViewModel
     private lateinit var viewModel: AppContactesViewModel
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +33,6 @@ class SecondFragment : Fragment() {
         // Finalment retornem l'arrel del binding
 
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,6 +44,7 @@ class SecondFragment : Fragment() {
         // Adaptació a MVVM: Afegim observadors al LiveData
         // contacteActual per a ser notificats dels canvis
 
+        binding.imageViewContacte.setImageResource(R.drawable.contacts)
         viewModel.contacteActual.observe(viewLifecycleOwner) {
             // I quan aquests es produïsquen, actualitzem les vistes de la interfície
             it?.let {
@@ -98,7 +93,9 @@ class SecondFragment : Fragment() {
                     binding.root,
                     resources.getString(R.string.contacteSaved),
                     Snackbar.LENGTH_LONG
-                ).show()
+                ).setAction(resources.getString(android.R.string.ok)) {
+                    findNavController().navigateUp()
+                }.show()
             }
         }
 
@@ -111,7 +108,9 @@ class SecondFragment : Fragment() {
                     binding.root,
                     resources.getString(R.string.updated),
                     Snackbar.LENGTH_LONG
-                ).show()
+                ).setAction(resources.getString(android.R.string.ok)) {
+                    findNavController().navigateUp()
+                }.show()
             }
         }
 
@@ -137,13 +136,10 @@ class SecondFragment : Fragment() {
         val nou= Contacte(
             name=binding.editTextTextPersonName.text.toString(),
             classe=binding.spinnerClasse.selectedItem.toString(),
-            img=viewModel.contacteActual?.value?.img?:0, // La imatge serà la mateixa
+            img=viewModel.contacteActual.value?.img?:R.drawable.contacts, // La imatge serà la mateixa
             phone=binding.editTextPhone.text.toString(),
             email=binding.editTextTextEmailAddress.text.toString())
 
-        Log.d("Debug meu", "11111111111111111")
         viewModel.guardaContacte(nou)
-        Log.d("Debug meu","22222222222222222")
-
     }
 }

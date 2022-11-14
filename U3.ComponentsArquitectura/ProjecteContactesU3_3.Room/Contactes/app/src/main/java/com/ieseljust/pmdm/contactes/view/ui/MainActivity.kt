@@ -39,9 +39,9 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         // Modificació per anar al segon fragment
-        binding.fab.setOnClickListener { view ->
+        binding.fab.setOnClickListener {
             viewModel.cleanContacteActual()
-            navController.navigate(R.id.action_FirstFragment_to_SecondFragment);
+            navController.navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->

@@ -1,7 +1,6 @@
 package com.ieseljust.pmdm.contactes.repository
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.ieseljust.pmdm.contactes.model.db.Contacte
 import com.ieseljust.pmdm.contactes.model.db.DatabaseBuilder
@@ -38,7 +37,6 @@ class ContacteRepository private constructor(
     // Més al funcionament CRUD d'una BD.
 
     fun getContactes(): LiveData<List<Contacte>>{
-        Log.d("Debug meu", "En getContactes....")
         return DatabaseBuilder.getInstance(context).contacteDao().getAll()
     }
 

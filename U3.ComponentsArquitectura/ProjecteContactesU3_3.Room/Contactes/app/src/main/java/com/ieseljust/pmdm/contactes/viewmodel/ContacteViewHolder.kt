@@ -16,8 +16,8 @@ class ContacteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
     // i amb els seus gestors d'esdeveniments, com a funcions Lambda
     fun bind(
         contacte: Contacte,
-        eventListenerClick: (Contacte, View) -> Unit,
-        eventListenerLongClick: (Contacte, View) -> Boolean
+        eventListenerClick: (Contacte) -> Unit,
+        eventListenerLongClick: (Contacte) -> Boolean
     ) {
         name.text = contacte.name
         img.setImageResource(contacte.img)
@@ -26,12 +26,12 @@ class ContacteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         // Click normal
         itemView.setOnClickListener{
-            eventListenerClick(contacte, itemView)
+            eventListenerClick(contacte)
             }
 
         // Click llarg
         itemView.setOnLongClickListener{
-            eventListenerLongClick(contacte, itemView)
+            eventListenerLongClick(contacte)
         }
     }
 
