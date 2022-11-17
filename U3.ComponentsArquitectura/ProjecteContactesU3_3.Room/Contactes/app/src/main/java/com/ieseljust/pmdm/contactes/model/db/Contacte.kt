@@ -6,8 +6,7 @@ import java.io.Serializable
 
 @Entity
 data class Contacte(
-    @PrimaryKey(autoGenerate = true)
-    var id:Long = 0,
+    @PrimaryKey(autoGenerate = true) var id:Long = 0,
     var name:String,
     var classe: String?,
     var img: Int,
