@@ -1,6 +1,7 @@
 package com.ieseljust.pmdm.contactes.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -123,15 +124,22 @@ class AppContactesViewModel(application: Application): AndroidViewModel(applicat
     // el contacte s'ha guardat/actualitzat correctament.
 
     fun guardaContacte(contacte: Contacte){
+        Log.d("11111111111", contacte.toString())
+
+        var id=-1L
+
         viewModelScope.launch(Dispatchers.IO) {
             // Comprovem si el contacte actual existeix o és nul
             if (_contacteActual.value != null) { // Si existeix fem l'updte
+                id=(_contacteActual.value as Contacte).id
+                Log.d("2222222", "2222222222222222")
                 repository.updateContacte(_contacteActual.value as Contacte)
                 // Activem l'indicador contacteUpdated per notificat a la
                 // interfície que s'ha modificat un element
                 contacteUpdated.postValue(true)
             }
             else { // Si no, l'afegim
+                Log.d("2222222", "33333333333333333")
                 repository.addContacte(contacte)
                 // Activem l'indicador contacteSavedm per notificat a la
                 // interfície que s'ha afegit un element
@@ -141,13 +149,17 @@ class AppContactesViewModel(application: Application): AndroidViewModel(applicat
             // I tant si actualitzem com si afegim....
 
             // Actualitzem el contacte actual, fent una còpia del contacte
+
+            if (id!=-1L) contacte.id=id;
             _contacteActual.postValue(contacte.copy())
+
 
             // Notifiquem a l'adaptador que s'ha modificat un element
             contacteList.value?.indexOf(_contacteActual.value)
                 ?.let { adaptador.value?.notifyItemChanged(it) }
             // Utilitzem açò en lloc del adaptador.value?.notifyDataSetChanged()
             //  (per eficiència i suggerència de l'IDE)
+            Log.d("2222222", _contacteActual.value.toString())
         }
     }
 }

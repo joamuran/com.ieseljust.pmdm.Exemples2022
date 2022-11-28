@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ui.EditFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/incidencia"
+            tools:ignore="ContentDescription" />
+
+        <EditText
+            android:id="@+id/textTitleIncidencia"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:hint="@string/IssueName"
+            android:text=""
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            tools:ignore="SpeakableTextPresentCheck"
+            android:autofillHints="Title"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/textDescripcio"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/AddDesc"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="@+id/textTitleIncidencia"
+            app:layout_constraintStart_toStartOf="@+id/textTitleIncidencia"
+            app:layout_constraintTop_toBottomOf="@+id/textTitleIncidencia"
+            tools:ignore="SpeakableTextPresentCheck"
+            android:autofillHints="Descripcio" />
+
+        <EditText
+            android:id="@+id/textCarrer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="@string/textStreet"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="@+id/textDescripcio"
+            app:layout_constraintStart_toStartOf="@+id/textDescripcio"
+            app:layout_constraintTop_toBottomOf="@+id/textDescripcio"
+            android:autofillHints="Ubicacio"
+            android:inputType="text" />
+
+        <Spinner
+            android:id="@+id/SpinnerServei"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:entries="@array/serveis"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="@+id/textCarrer"
+            app:layout_constraintStart_toStartOf="@+id/textCarrer"
+            app:layout_constraintTop_toBottomOf="@+id/textCarrer"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <!-- En lloc del Switch -->
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switchResolt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:minHeight="48dp"
+            android:text="@string/Solved"
+            app:layout_constraintEnd_toEndOf="@+id/SpinnerServei"
+            app:layout_constraintStart_toStartOf="@+id/SpinnerServei"
+            app:layout_constraintTop_toBottomOf="@+id/SpinnerServei" />
+
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/saveIncidencia"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/switchResolt"
+            app:layout_constraintStart_toStartOf="@+id/switchResolt"
+            app:layout_constraintTop_toBottomOf="@+id/switchResolt" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
