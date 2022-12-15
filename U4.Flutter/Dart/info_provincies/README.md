@@ -31,10 +31,12 @@ Exemples amb diverses peticions encadenades:
 
 * **Exemple 9**. Obté la llista de províncies i després de comarques per província fent ús de callbacks.
 
-Tot i que les funcions que ofereix la llibrería *http* són molt senzilles, ens hem definit per fer els exemples de forma més còmoda la classe *PeticionsHTTP*, que conté els tres mètodes següents:
+Tot i que les funcions que ofereix la llibrería *http* són molt senzilles, ens hem definit per fer els exemples de forma més còmoda la classe *PeticionsHTTP*, que conté els quatre mètodes següents:
 
 * `static void requestAndShow(String url)`: Realitza una petició HTTP i mostra el resultat per pantalla. Si hi ha un error en la connexió o en la petició, el mostra també.
 
 * `static dynamic requestSync(String url) async`: Fa una petició síncrona sobre la URL indicada, fent ús d'`async/await` per tal d'esperar la resposta a la petició. Quan es rep la resposta, aquesta es retorna, ja siguen les dades en sí o un error.
 
 * `static Future<dynamic> request(url)`: Realitza la petició asíncrona, retornant un tipus Future, que es resoldrà a la resposta de la petició.
+
+* `static void requestCallbacks(String url, {required var onResponse, required var onError})`: Rep una URL sobre la que realitzar la petició, junt amb dues funcions anònimes: `onResponse` i `onError`. El primer serà el callback per a quan la la petició tinga èxit, mentre que el segon per a quan es produisca un error.
