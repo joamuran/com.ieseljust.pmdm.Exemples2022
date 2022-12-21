@@ -69,7 +69,7 @@ void exemple3() {
   */
   var provinciesFuture = PeticionsHTTP.request(url);
   provinciesFuture.then((data) {
-    print("Respost asíncrona amb Futures: ${data.toString()}");
+    print("Resposta asíncrona amb Futures: ${data.toString()}");
   });
 }
 
